@@ -1,0 +1,246 @@
+replicaCount: 1
+
+image:
+  repository: armadik/ranger-admin
+  pullPolicy: Always
+  tag: "2.4.0"
+
+nameOverride: "ranger-admin"
+fullnameOverride: "ranger-admin"
+
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 6080
+
+extraEnv:
+  - name: JAVA_OPTS
+    value: " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=6081 -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -javaagent:/usr/share/java/jmx_prometheus_javaagent.jar=6088:/opt/ranger-admin/jmx_prometheus_javaagent.yaml -Dcom.sun.management.jmxremote.ssl=false "
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts: []
+ #  - host: ranger-admin.local.com
+ #    paths:
+ #      - path: /
+ #        pathType: ImplementationSpecific
+  tls: []
+    #- secretName: {}
+    #  hosts:
+    #    - ranger-admin.local.com
+    #  paths:
+    #    - /
+
+conf:
+  PYTHON_COMMAND_INVOKER: python3
+  DB_FLAVOR: POSTGRES
+  SQL_CONNECTOR_JAR: /usr/share/java/postgresql-connector-java.jar
+  db_root_user: ranger
+  db_root_password: ranger
+  db_host: ranger-local-postgresql:5432
+  db_ssl_enabled: false
+  db_ssl_required: false
+  db_ssl_verifyServerCertificate: false
+  db_ssl_auth_type: 2-way
+  javax_net_ssl_keyStore:
+  javax_net_ssl_keyStorePassword:
+  javax_net_ssl_trustStore:
+  javax_net_ssl_trustStorePassword:
+  javax_net_ssl_trustStore_type: jks
+  javax_net_ssl_keyStore_type: jks
+  db_ssl_certificate_file:
+  db_name: ranger
+  db_user: ranger
+  db_password: ranger
+  is_override_db_connection_string: false
+  db_override_connection_string:
+  rangerAdmin_password: RANGERADMINPASSWORD
+  rangerTagsync_password: RANGERTAGSYNCPASSWORD
+  rangerUsersync_password: RANGERUSERSYNCPASSWORD
+  keyadmin_password: RANGERKEYADMINPASSWORD
+  audit_store: solr
+  audit_elasticsearch_urls:
+  audit_elasticsearch_port:
+  audit_elasticsearch_protocol:
+  audit_elasticsearch_user:
+  audit_elasticsearch_password:
+  audit_elasticsearch_index:
+  audit_elasticsearch_bootstrap_enabled: true
+  audit_solr_urls: localhost:8123
+  audit_solr_user: SOLR_USER
+  audit_solr_password: SOLR_PASSWORD
+  audit_solr_zookeepers:
+  audit_solr_collection_name: ranger_audits
+  audit_solr_config_name: ranger_audits
+  audit_solr_configset_location:
+  audit_solr_no_shards: 1
+  audit_solr_no_replica: 1
+  audit_solr_max_shards_per_node: 1
+  audit_solr_acl_user_list_sasl: solr,infra-solr
+  audit_solr_bootstrap_enabled: true
+  audit_cloudwatch_region:
+  audit_cloudwatch_log_group:
+  audit_cloudwatch_log_stream_prefix:
+  policymgr_external_url: http://localhost:6080
+  policymgr_http_enabled: true
+  policymgr_https_keystore_file:
+  policymgr_https_keystore_keyalias: rangeradmin
+  policymgr_https_keystore_password:
+  policymgr_supportedcomponents: hdfs,yarn
+  unix_user: ranger
+  unix_user_pwd:
+  unix_group: ranger
+  authentication_method: LDAP
+  remoteLoginEnabled: true
+  authServiceHostName: localhost
+  authServicePort: 5151
+  ranger_unixauth_keystore: keystore.jks
+  ranger_unixauth_keystore_password: password
+  ranger_unixauth_truststore: cacerts
+  ranger_unixauth_truststore_password: changeit
+  xa_ldap_url:
+  xa_ldap_userDNpattern:
+  xa_ldap_groupSearchBase:
+  xa_ldap_groupSearchFilter:
+  xa_ldap_groupRoleAttribute:
+  xa_ldap_base_dn:
+  xa_ldap_bind_dn:
+  xa_ldap_bind_password: LDAP_TUZ_PASSWORD
+  xa_ldap_referral:
+  xa_ldap_userSearchFilter:
+  xa_ldap_ad_domain:
+  xa_ldap_ad_url:
+  xa_ldap_ad_bind_dn:
+  xa_ldap_ad_base_dn:
+  xa_ldap_ad_bind_password:
+  xa_ldap_ad_referral:
+  xa_ldap_ad_userSearchFilter:
+  spnego_principal:
+  spnego_keytab:
+  token_valid: 30
+  cookie_domain:
+  cookie_path: /
+  admin_principal:
+  admin_keytab:
+  lookup_principal:
+  lookup_keytab:
+  hadoop_conf: /etc/hadoop-default
+  sso_enabled: false
+  sso_providerurl: https://127.0.0.1:8443/gateway/knoxsso/api/v1/websso
+  sso_publickey:
+  RANGER_ADMIN_LOG_DIR: $PWD
+  RANGER_ADMIN_LOGBACK_CONF_FILE:
+  RANGER_PID_DIR_PATH: /tmp/ranger
+  XAPOLICYMGR_DIR: $PWD
+  app_home: /opt/ranger-admin/ews/webapp
+  TMPFILE: /opt/ranger-admin/.fi_tmp
+  LOGFILE: /opt/ranger-admin/logfile
+  LOGFILES: "$LOGFILE"
+  JAVA_BIN: 'java'
+  JAVA_VERSION_REQUIRED: '1.8'
+  JAVA_ORACLE: 'Java(TM) SE Runtime Environment'
+  ranger_admin_max_heap_size: 4g
+  PATCH_RETRY_INTERVAL: 120
+  STALE_PATCH_ENTRY_HOLD_TIME: 10
+
+ranger_usersync:
+  enabled: false
+  image:
+    repository: armadik/ranger-usersync
+    pullPolicy: Always
+    tag: "2.4.0"
+
+  extraEnv: []
+
+  conf:
+    ranger_base_dir: /etc/ranger
+    SYNC_SOURCE: ldap
+    MIN_UNIX_USER_ID_TO_SYNC: 1000
+    MIN_UNIX_GROUP_ID_TO_SYNC: 500
+    SYNC_INTERVAL: 15
+    unix_user: ranger
+    unix_group: ranger
+    rangerUsersync_password: RANGERUSERSYNCPASSWORD
+    usersync_principal:
+    usersync_keytab:
+    hadoop_conf: /etc/hadoop-default
+    CRED_KEYSTORE_FILENAME: /etc/ranger/usersync/conf/rangerusersync.jceks
+    AUTH_SSL_ENABLED: false
+    AUTH_SSL_KEYSTORE_FILE: /etc/ranger/usersync/conf/cert/unixauthservice.jks
+    AUTH_SSL_KEYSTORE_PASSWORD: 12345
+    AUTH_SSL_TRUSTSTORE_FILE:
+    AUTH_SSL_TRUSTSTORE_PASSWORD:
+    ROLE_ASSIGNMENT_LIST_DELIMITER: "&"
+    USERS_GROUPS_ASSIGNMENT_LIST_DELIMITER: ":"
+    USERNAME_GROUPNAME_ASSIGNMENT_LIST_DELIMITER: ","
+    GROUP_BASED_ROLE_ASSIGNMENT_RULES:
+    SYNC_LDAP_URL:
+    SYNC_LDAP_BIND_DN:
+    SYNC_LDAP_BIND_PASSWORD:
+    SYNC_LDAP_DELTASYNC:
+    SYNC_LDAP_SEARCH_BASE:
+    SYNC_LDAP_USER_SEARCH_BASE:
+    SYNC_LDAP_USER_SEARCH_SCOPE:
+    SYNC_LDAP_USER_OBJECT_CLASS:
+    SYNC_LDAP_USER_SEARCH_FILTER:
+    SYNC_LDAP_USER_NAME_ATTRIBUTE:
+    SYNC_GROUP_SEARCH_SCOPE:
+    SYNC_GROUP_OBJECT_CLASS:
+    SYNC_GROUP_MEMBER_ATTRIBUTE_NAME:
+    SYNC_LDAP_USER_GROUP_NAME_ATTRIBUTE:
+    SYNC_LDAP_USERNAME_CASE_CONVERSION: none
+    SYNC_LDAP_GROUPNAME_CASE_CONVERSION: none
+    SYNC_LDAP_GROUP_SEARCH_FILTER:
+    SYNC_LDAP_REFERRAL:
+    SYNC_GROUP_SEARCH_ENABLED:
+    SYNC_GROUP_USER_MAP_SYNC_ENABLED:
+    USERSYNC_PID_DIR_PATH: /opt/ranger-usersync/
+    JVM_METRICS_ENABLED: false
+    JVM_METRICS_FILENAME: ranger_usersync_metric.json
+    JVM_METRICS_FILEPATH: logs
+    JVM_METRICS_FREQUENCY_TIME_IN_MILLIS: 10000
+    logdir: logs
+
+imagePullSecrets: []
+
+resources:
+  limits:
+    cpu: 4
+    memory: 8Gi
+  requests:
+    cpu: 2
+    memory: 4Gi
+
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+servicemonitor:
+  create: true
+
+postgresql:
+  enabled: true
+  postgresqlDatabase: ranger
+  postgresqlUsername: ranger
+  postgresqlPassword: ranger

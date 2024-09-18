@@ -1,0 +1,18 @@
+{{- if .Values.servicemonitor.create -}}
+kind: ServiceMonitor
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: {{ include "ranger.fullname" . }}
+  labels: {{ include "ranger.labels" . | nindent 6 }}
+spec:
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+    {{- include "ranger.selectorLabels" . | nindent 6 }}
+  endpoints:
+    - path: /metrics
+      port: metrics
+      interval: 60s
+  {{- end }}

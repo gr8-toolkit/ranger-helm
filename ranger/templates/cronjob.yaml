@@ -1,0 +1,44 @@
+{{- if .Values.ranger_usersync.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "ranger.fullname" . }}-usersync
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 900
+      template:
+        spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+              {{- toYaml . | nindent 12 }}
+          {{- end }}
+          containers:
+            - name: {{ include "ranger.fullname" . }}
+              image: "{{ .Values.ranger_usersync.image.repository }}:{{ .Values.ranger_usersync.image.tag}}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              envFrom:
+                - secretRef:
+                    name: {{ include "ranger.fullname" . }}
+              {{- if .Values.ranger_usersync.extraEnv }}
+              env:
+              {{- range .Values.ranger_usersync.extraEnv }}
+                - name: {{ .name }}
+                  value: {{ .value | quote }}
+              {{- end }}
+              {{- end }}
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /opt/ranger_usersync/install.properties
+                  subPath: install_properties
+                  readOnly: false
+          restartPolicy: Never
+          volumes:
+            - name: config-volume
+              configMap:
+                name: {{ include "ranger.fullname" . }}-usersync
+                defaultMode: 0777
+{{- end }}
