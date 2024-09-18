@@ -66,10 +66,10 @@ conf:
   db_password: ranger
   is_override_db_connection_string: false
   db_override_connection_string:
-  rangerAdmin_password: RANGERADMINPASSWORD
-  rangerTagsync_password: RANGERTAGSYNCPASSWORD
-  rangerUsersync_password: RANGERUSERSYNCPASSWORD
-  keyadmin_password: RANGERKEYADMINPASSWORD
+  rangerAdmin_password: Rangeradmin1!
+  rangerTagsync_password: Rangeradmin1!
+  rangerUsersync_password: Rangeradmin1!
+  keyadmin_password: Rangeradmin1!
   audit_store: solr
   audit_elasticsearch_urls:
   audit_elasticsearch_port:
@@ -172,7 +172,7 @@ ranger_usersync:
     SYNC_INTERVAL: 15
     unix_user: ranger
     unix_group: ranger
-    rangerUsersync_password: RANGERUSERSYNCPASSWORD
+    rangerUsersync_password: Rangeradmin1!
     usersync_principal:
     usersync_keytab:
     hadoop_conf: /etc/hadoop-default
