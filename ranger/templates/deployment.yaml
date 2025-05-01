@@ -51,7 +51,7 @@ spec:
             {{- end }}
           volumeMounts:
             - name: config-volume
-              mountPath: /opt/ranger-admin/install.properties
+              mountPath: {{ .Values.configMountPath }}
               subPath: install_properties
               readOnly: false
           resources:

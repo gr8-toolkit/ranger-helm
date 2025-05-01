@@ -19,6 +19,7 @@ The Helm chart for ranger
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| configMountPath | string | `/opt/ranger-admin/install.properties` |  |
 | conf.DB_FLAVOR | string | `"POSTGRES"` |  |
 | conf.JAVA_BIN | string | `"java"` |  |
 | conf.JAVA_ORACLE | string | `"Java(TM) SE Runtime Environment"` |  |

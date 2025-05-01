@@ -45,6 +45,8 @@ ingress:
     #  paths:
     #    - /
 
+configMountPath: /opt/ranger-admin/install.properties
+
 conf:
   PYTHON_COMMAND_INVOKER: python3
   DB_FLAVOR: POSTGRES
