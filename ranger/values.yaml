@@ -13,6 +13,8 @@ serviceAccount:
   annotations: {}
   name: ""
 
+commonLabels: {}
+
 podAnnotations: {}
 
 podSecurityContext: {}

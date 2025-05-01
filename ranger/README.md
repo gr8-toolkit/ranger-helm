@@ -209,6 +209,7 @@ The Helm chart for ranger
 | securityContext | object | `{}` |  |
 | service.port | int | `6080` |  |
 | service.type | string | `"ClusterIP"` |  |
+| commonLabels | object | `{}` | Labels to add to all deployed objects |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `false` |  |
 | serviceAccount.name | string | `""` |  |
