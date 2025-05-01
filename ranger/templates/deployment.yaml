@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "ranger.labels" . | nindent 4 }}
     {{- if .Values.commonLabels }}
-    {{- toYaml .Values.commonLabels | nindent 0 }}
+    {{- toYaml .Values.commonLabels | nindent 4 }}
     {{- end}}
 spec:
   {{- if not .Values.autoscaling.enabled }}
