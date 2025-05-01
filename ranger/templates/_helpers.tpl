@@ -36,9 +36,6 @@ Common labels
 {{- define "ranger.labels" -}}
 helm.sh/chart: {{ include "ranger.chart" . }}
 {{ include "ranger.selectorLabels" . }}
-{{- if .Values.commonLabels }}
-{{- toYaml .Values.commonLabels }}
-{{- end}}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
