@@ -39,6 +39,9 @@ helm.sh/chart: {{ include "ranger.chart" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
+{{- if .Values.commonLabels }}
+{{- toYaml .Values.commonLabels }}
+{{- end}}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
