@@ -7,6 +7,10 @@ metadata:
     {{- if .Values.commonLabels }}
     {{- toYaml .Values.commonLabels | nindent 4 }}
     {{- end}}
+  {{- if .Values.podAnnotations }}
+  annotations:
+    {{- toYaml .Values.podAnnotations | nindent 4 }}
+  {{- end}}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
