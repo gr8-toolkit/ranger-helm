@@ -4,7 +4,9 @@ kind: ConfigMap
 metadata:
   name: {{ include "ranger.fullname" . }}-usersync
   labels:
-    {{- include "ranger.labels" . | nindent 4 }}
+    app.kubernetes.io/name: {{ include "ranger.name" . }}
+    helm.sh/chart: {{ include "ranger.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
 data:
   install_properties: |
     ranger_base_dir={{ .Values.ranger_usersync.conf.ranger_base_dir }}

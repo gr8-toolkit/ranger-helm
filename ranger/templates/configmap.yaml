@@ -3,7 +3,9 @@ kind: ConfigMap
 metadata:
   name: {{ include "ranger.fullname" . }}
   labels:
-    {{- include "ranger.labels" . | nindent 4 }}
+    app.kubernetes.io/name: {{ include "ranger.name" . }}
+    helm.sh/chart: {{ include "ranger.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
 data:
     install_properties: |
       PYTHON_COMMAND_INVOKER={{ .Values.conf.PYTHON_COMMAND_INVOKER }}
