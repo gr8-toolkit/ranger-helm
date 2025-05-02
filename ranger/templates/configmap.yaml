@@ -6,6 +6,9 @@ metadata:
     app.kubernetes.io/name: {{ include "ranger.name" . }}
     helm.sh/chart: {{ include "ranger.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- if .Values.commonLabels }}
+    {{- toYaml .Values.commonLabels | nindent 4 }}
+    {{- end}}
 data:
     install_properties: |
       PYTHON_COMMAND_INVOKER={{ .Values.conf.PYTHON_COMMAND_INVOKER }}
