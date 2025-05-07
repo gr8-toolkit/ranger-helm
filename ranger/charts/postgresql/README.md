@@ -1,10 +1,11 @@
-# postgresql
+# Postgresql
 
 > **:exclamation: This Helm Chart is deprecated!**
 
 ![Version: 8.6.4](https://img.shields.io/badge/Version-8.6.4-informational?style=flat-square) ![AppVersion: 11.7.0](https://img.shields.io/badge/AppVersion-11.7.0-informational?style=flat-square)
 
-DEPRECATED Chart for PostgreSQL, an object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
+DEPRECATED Chart for PostgreSQL, an object-relational database management system
+(ORDBMS) with an emphasis on extensibility and on standards-compliance.
 
 **Homepage:** <https://www.postgresql.org/>
 

@@ -8,7 +8,7 @@ The Helm chart for ranger
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.helm.sh/stable | postgresql | 8.6.4 |
+| <https://charts.helm.sh/stable> | postgresql | 8.6.4 |
 
 ## Values
 
