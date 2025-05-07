@@ -19,4 +19,3 @@ RUN cd /opt \
     && rm -rf target/*.zip
 
 ENTRYPOINT ["bash"]
-
