@@ -150,6 +150,7 @@ The Helm chart for ranger
 | postgresql.postgresqlDatabase | string | `"ranger"` |  |
 | postgresql.postgresqlPassword | string | `"ranger"` |  |
 | postgresql.postgresqlUsername | string | `"ranger"` |  |
+| ranger_usersync.configMountPath | string | `"/opt/ranger_usersync/install.properties"` |  |
 | ranger_usersync.conf.AUTH_SSL_ENABLED | bool | `false` |  |
 | ranger_usersync.conf.AUTH_SSL_KEYSTORE_FILE | string | `"/etc/ranger/usersync/conf/cert/unixauthservice.jks"` |  |
 | ranger_usersync.conf.AUTH_SSL_KEYSTORE_PASSWORD | int | `12345` |  |

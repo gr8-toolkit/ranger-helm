@@ -167,7 +167,7 @@ ranger_usersync:
     tag: "2.4.0"
 
   extraEnv: []
-
+  configMountPath: /opt/ranger_usersync/install.properties
   conf:
     ranger_base_dir: /etc/ranger
     SYNC_SOURCE: ldap

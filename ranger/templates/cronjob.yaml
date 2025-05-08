@@ -44,7 +44,7 @@ spec:
               {{- end }}
               volumeMounts:
                 - name: config-volume
-                  mountPath: /opt/ranger_usersync/install.properties
+                  mountPath: {{ .Values.ranger_usersync.configMountPath }}
                   subPath: install_properties
                   readOnly: false
               resources:
