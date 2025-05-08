@@ -19,7 +19,7 @@ spec:
       template:
         metadata:
           labels:
-            {{- include "ranger.selectorLabels" . | nindent 12 }}
+            {{- include "ranger.labels" . | nindent 12 }}
             {{- if .Values.commonLabels }}
             {{- toYaml .Values.commonLabels | nindent 12 }}
             {{- end}}
