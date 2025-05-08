@@ -202,6 +202,15 @@ The Helm chart for ranger
 | ranger_usersync.image.pullPolicy | string | `"Always"` |  |
 | ranger_usersync.image.repository | string | `"armadik/ranger-usersync"` |  |
 | ranger_usersync.image.tag | string | `"2.4.0"` |  |
+| ranger_usersync.schedule | string | `"0 * * * *"` | CronJob schedule |
+
+| ranger_usersync.timeZone | string | `"UTC"` | CronJob timezone |
+| ranger_usersync.backoffLimit | int | `2` | CronJob backoffLimit |
+| ranger_usersync.activeDeadlineSeconds | int | `900` | CronJob activeDeadlineSeconds |
+| ranger_usersync.resources.limits.cpu | string | `500m` |  |
+| ranger_usersync.resources.limits.memory | string | `"512Mi"` |  |
+| ranger_usersync.resources.requests.cpu | string | `200m` |  |
+| ranger_usersync.resources.requests.memory | string | `"256Mi"` |  |
 | replicaCount | int | `1` |  |
 | resources.limits.cpu | int | `4` |  |
 | resources.limits.memory | string | `"8Gi"` |  |
