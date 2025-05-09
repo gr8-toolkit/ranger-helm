@@ -167,7 +167,7 @@ ranger_usersync:
     tag: "2.4.0"
 
   extraEnv: []
-
+  configMountPath: /opt/ranger_usersync/install.properties
   conf:
     ranger_base_dir: /etc/ranger
     SYNC_SOURCE: ldap
@@ -216,17 +216,27 @@ ranger_usersync:
     JVM_METRICS_FILEPATH: logs
     JVM_METRICS_FREQUENCY_TIME_IN_MILLIS: 10000
     logdir: logs
+  schedule: "0 * * * *"
+  timeZone: UTC
+  backoffLimit: 2
+  activeDeadlineSeconds: 900
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
 
 imagePullSecrets: []
 
 resources:
-  limits:
-    cpu: 4
-    memory: 8Gi
   requests:
     cpu: 2
     memory: 4Gi
-
+  limits:
+    cpu: 4
+    memory: 8Gi
 
 autoscaling:
   enabled: false

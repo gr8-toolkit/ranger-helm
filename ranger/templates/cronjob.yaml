@@ -10,16 +10,23 @@ metadata:
     {{- end}}
 spec:
   concurrencyPolicy: Forbid
-  schedule: "0 * * * *"
+  schedule: {{ .Values.ranger_usersync.schedule }}
   jobTemplate:
     spec:
-      backoffLimit: 2
-      activeDeadlineSeconds: 900
+      timeZone: {{ .Values.ranger_usersync.timeZone}}
+      backoffLimit: {{ .Values.ranger_usersync.backoffLimit }}
+      activeDeadlineSeconds: {{ .Values.ranger_usersync.activeDeadlineSeconds }}
       template:
+        metadata:
+          labels:
+            {{- include "ranger.labels" . | nindent 12 }}
+            {{- if .Values.commonLabels }}
+            {{- toYaml .Values.commonLabels | nindent 12 }}
+            {{- end}}
         spec:
           {{- with .Values.imagePullSecrets }}
           imagePullSecrets:
-              {{- toYaml . | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           containers:
             - name: {{ include "ranger.fullname" . }}
@@ -37,13 +44,28 @@ spec:
               {{- end }}
               volumeMounts:
                 - name: config-volume
-                  mountPath: /opt/ranger_usersync/install.properties
+                  mountPath: {{ .Values.ranger_usersync.configMountPath }}
                   subPath: install_properties
                   readOnly: false
+              resources:
+                {{- toYaml .Values.ranger_usersync.resources | nindent 16 }}
+
           restartPolicy: Never
           volumes:
             - name: config-volume
               configMap:
                 name: {{ include "ranger.fullname" . }}-usersync
                 defaultMode: 0777
+          {{- with .Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
 {{- end }}
